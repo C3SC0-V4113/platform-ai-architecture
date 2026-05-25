@@ -23,7 +23,8 @@ Es uno de los proyectos publicos/demostrables principales del portafolio. Para e
 - historial visible;
 - streaming;
 - adjuntos;
-- futura experiencia de voz.
+- futura experiencia de voz;
+- panel de configuracion de proveedores por usuario o proyecto.
 
 ## Stack actual
 
@@ -66,16 +67,32 @@ Es uno de los proyectos publicos/demostrables principales del portafolio. Para e
 - delegar persistencia robusta de assets a `asset/document registry`;
 - consumir RAG y tools via `knowledge-rag` y `mcp-server` cuando corresponda.
 
+## Configuracion futura de proveedores
+
+`other-gpt` tendra un panel de configuracion para definir proveedores por capacidad:
+
+- `chatProvider`: creador de chats;
+- `imageProvider`: creador de imagenes;
+- `ttsProvider`: text-to-speech;
+- `sttProvider`: speech-to-text;
+- `realtimeCallProvider`: llamadas realtime.
+
+Cada opcion inicia en `auto`. En `auto`, `ai-gateway` decide proveedor y modelo segun politica, costo, capacidad, latencia o disponibilidad.
+
+Si el usuario o proyecto define un proveedor explicito, `other-gpt` debe enviarlo como preferencia fijada. `ai-gateway` no debe reemplazarlo por otro proveedor de forma silenciosa; si falla, la UI debe mostrar un error accionable.
+
 ## Que guarda
 
 - en su forma ideal futura: solo estado UI local y caches de experiencia de cliente.
 - en su forma actual: parte del estado de sesion y mensajes vive localmente en el backend Next del proyecto.
+- preferencias de experiencia o proveedor cuando correspondan, pero no secretos ni llaves de proveedor.
 
 ## Que no debe guardar como source of truth a futuro
 
 - identidad central;
 - costos globales;
 - pricing de proveedores;
+- secretos de proveedor;
 - corpus RAG;
 - tools MCP;
 - storage persistente compartido del portafolio.

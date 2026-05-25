@@ -38,7 +38,7 @@ El learning path enumera habilidades importantes del portafolio; no define prior
 
 - `other-gpt`: satelite de chat multimodal y futura voz; recurso publico/demostrable temprano.
 - `auth-service`: producto base de autenticacion centralizada con aislamiento por proyecto; necesario para exponer proyectos publicos con roles.
-- `ai-gateway`: orquestacion multi-provider y politicas de inferencia; importante, pero puede madurar despues de la primera exposicion publica.
+- `ai-gateway`: orquestacion multi-provider, control-plane de proveedores y politicas de inferencia; importante, pero puede madurar despues de la primera exposicion publica.
 - `knowledge-rag`: ingest, chunking, embeddings, retrieval y citas; importante, pero secundario hasta aclarar mejor su caso de uso.
 - `mcp-server`: superficie estandar de tools para apps y agentes; puede ser necesario temprano para operar auth desde OpenClaw.
 - `openclaw-ops`: interfaz operativa basada en OpenClaw y Telegram; recurso publico/demostrable temprano y primera superficie de operaciones.
@@ -51,6 +51,7 @@ El learning path enumera habilidades importantes del portafolio; no define prior
 - [ADR 0002](./docs/adr/0002-adopt-multi-repo-portfolio-with-shared-packages.md): el portafolio adopta estrategia multi-repo con paquetes compartidos.
 - [ADR 0003](./docs/adr/0003-centralize-auth-with-project-isolation.md): auth-service controla identidad con aislamiento por proyecto.
 - [ADR 0004](./docs/adr/0004-separate-chat-persistence-assets-rag-and-mcp.md): separar persistencia de chat, registro de assets, RAG y MCP.
+- [ADR 0005](./docs/adr/0005-use-ai-gateway-as-provider-control-plane.md): usar ai-gateway como control-plane de proveedores y respetar configuracion explicita.
 
 ## Como continuar
 

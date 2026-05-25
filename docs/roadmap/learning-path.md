@@ -47,8 +47,8 @@ El orden de los puntos no representa prioridad de entrega ni dificultad. Todas l
 ## Punto 6: Orquestacion de modelos
 
 - Nombre corto: `AI Gateway`
-- Objetivo: elegir proveedor y modelo segun capacidad, costo, politica y latencia.
-- Capability: orquestacion multi-provider.
+- Objetivo: elegir proveedor y modelo segun capacidad, costo, politica, latencia y preferencias explicitas.
+- Capability: orquestacion multi-provider y control-plane de proveedores.
 - Proyecto principal: `ai-gateway`.
 - Consumidores o soporte: `other-gpt`, `cost-console`, `mcp-server`.
 
@@ -64,7 +64,7 @@ El orden de los puntos no representa prioridad de entrega ni dificultad. Todas l
 
 - Nombre corto: `Voice UX`
 - Objetivo: agregar conversacion por voz como capacidad de experiencia.
-- Capability: STT, TTS y luego realtime voice.
+- Capability: STT, TTS y luego realtime voice, con proveedor configurable via `ai-gateway`.
 - Proyecto principal: `other-gpt`.
 - Consumidores o soporte: `ai-gateway`.
 
