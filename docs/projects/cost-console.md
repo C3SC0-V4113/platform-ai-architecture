@@ -1,0 +1,52 @@
+# cost-console
+
+## Proposito
+
+Dashboard y capa de inteligencia de costos del portafolio.
+
+## Punto(s) del learning path
+
+- principal: `7`;
+- aplica partes de `6`.
+
+## Tipo de proyecto
+
+- frontend dashboard.
+
+## Arquetipo frontend
+
+- dashboard analitico con tablas, filtros, comparativas, forecast y recomendacion de modelos.
+
+## Stack recomendado
+
+- `Next.js`
+- `TypeScript`
+
+## Que guarda
+
+- pricing conocido por proveedor o modelo;
+- consumo agregado;
+- presupuestos;
+- recomendaciones o reglas de comparacion.
+
+## Que no guarda
+
+- identidad maestra;
+- assets can?nicos;
+- corpus RAG.
+
+## Con quien habla
+
+- `ai-gateway`
+- `auth-service`
+- `openclaw-ops`
+- `other-gpt` de forma parcial
+
+## Riesgos
+
+- intentar convertirlo en gateway;
+- mezclar visualizacion de costos con routing de inferencia.
+
+## Estado esperado en el portafolio
+
+Proyecto visible del punto `7`, util tanto como dashboard como capability de recomendacion economica.
