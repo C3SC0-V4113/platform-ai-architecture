@@ -4,6 +4,8 @@
 
 Dashboard y capa de inteligencia de costos del portafolio.
 
+Es uno de los proyectos publicos/demostrables que se quiere exponer temprano, por lo que necesita integrarse con `auth-service` para acceso controlado y roles por proyecto.
+
 ## Punto(s) del learning path
 
 - principal: `7`;
@@ -46,7 +48,8 @@ Dashboard y capa de inteligencia de costos del portafolio.
 
 - intentar convertirlo en gateway;
 - mezclar visualizacion de costos con routing de inferencia.
+- exigir integracion completa con todos los servicios antes de que exista una demo util.
 
 ## Estado esperado en el portafolio
 
-Proyecto visible del punto `7`, util tanto como dashboard como capability de recomendacion economica.
+Proyecto visible del punto `7`, util tanto como dashboard como capability de recomendacion economica. Debe poder exponerse como recurso publico del portafolio aunque algunas integraciones, como `ai-gateway`, maduren despues.

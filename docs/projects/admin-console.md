@@ -4,6 +4,8 @@
 
 Panel administrativo del portafolio para usuarios, sesiones, permisos, apps y presupuestos.
 
+Es la ultima prioridad practica del portafolio. No debe bloquear la exposicion temprana de `other-gpt`, `cost-console` u `openclaw-ops`.
+
 ## Punto(s) del learning path
 
 - soporte transversal a `5` y `7`.
@@ -15,6 +17,12 @@ Panel administrativo del portafolio para usuarios, sesiones, permisos, apps y pr
 ## Arquetipo frontend
 
 - dashboard CRUD con formularios, tablas, auditoria y permisos.
+
+## Secuencia esperada
+
+- primero deben existir las capacidades administrativas reales en `auth-service`;
+- luego deben poder operarse desde `openclaw-ops` mediante tools o MCP;
+- finalmente `admin-console` puede ofrecer una interfaz visual completa sobre esas mismas capacidades.
 
 ## Stack recomendado
 
@@ -41,7 +49,8 @@ Panel administrativo del portafolio para usuarios, sesiones, permisos, apps y pr
 
 - duplicar logica que deberia vivir en auth-service;
 - crecer sin necesidad si Telegram/OpenClaw cubren operacion inicial.
+- consumir tiempo antes de demostrar recursos publicos del portafolio.
 
 ## Estado esperado en el portafolio
 
-Proyecto opcional posterior para administracion visual del ecosistema.
+Proyecto opcional posterior para administracion visual del ecosistema. Debe llegar despues de validar `auth-service` y la operacion inicial desde `openclaw-ops`.

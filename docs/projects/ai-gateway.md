@@ -4,6 +4,8 @@
 
 Backend de orquestacion multi-provider del portafolio. Decide proveedor y modelo segun capacidad, politica, costo y latencia.
 
+Sigue siendo una habilidad importante, pero su implementacion completa puede quedar secundaria mientras `other-gpt`, `cost-console`, `openclaw-ops` y `auth-service` habilitan una exposicion publica inicial.
+
 ## Punto(s) del learning path
 
 - principal: `6`;
@@ -50,7 +52,8 @@ Backend de orquestacion multi-provider del portafolio. Decide proveedor y modelo
 
 - empezar dentro de un frontend y quedar acoplado a ese frontend;
 - mezclar decisiones de policy con UI conversacional.
+- retrasar demos publicas esperando una capa completa de orquestacion multi-provider.
 
 ## Estado esperado en el portafolio
 
-Proyecto propio, visible como la pieza principal del punto `6`.
+Proyecto propio, visible como la pieza principal del punto `6`. Puede iniciar con integraciones parciales o posteriores, sin cambiar su importancia dentro del learning path.

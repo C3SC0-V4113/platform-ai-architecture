@@ -4,6 +4,8 @@
 
 Exponer tools reutilizables para apps, agentes y OpenClaw a traves de una superficie estandar.
 
+Puede ser necesario temprano como mecanismo para que `openclaw-ops` ejecute operaciones controladas sobre `auth-service`, especialmente crear usuarios, promover roles y denegar accesos por proyecto.
+
 ## Punto(s) del learning path
 
 - principal: `3`;
@@ -48,7 +50,8 @@ Exponer tools reutilizables para apps, agentes y OpenClaw a traves de una superf
 
 - usar MCP como sustituto de APIs internas normales;
 - exponer tools sin scopes ni politicas claras.
+- implementar demasiadas tools antes de tener claro que operaciones necesita la exposicion publica inicial.
 
 ## Estado esperado en el portafolio
 
-Proyecto principal del punto `3`, consumido por chat y operaciones.
+Proyecto principal del punto `3`, consumido por chat y operaciones. Su primera utilidad practica puede ser exponer tools operativas seguras para OpenClaw, sin reemplazar APIs internas.

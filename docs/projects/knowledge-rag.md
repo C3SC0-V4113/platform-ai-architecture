@@ -4,6 +4,8 @@
 
 Servicio de ingestion, chunking, embeddings, retrieval y citas para conocimiento recuperable.
 
+Sigue siendo una habilidad importante del portafolio, pero su implementacion puede quedar secundaria hasta que exista un caso de uso mas claro y demostrable.
+
 ## Punto(s) del learning path
 
 - principal: `2`;
@@ -53,7 +55,8 @@ Servicio de ingestion, chunking, embeddings, retrieval y citas para conocimiento
 
 - convertirlo en almacenamiento generico de adjuntos y perder frontera conceptual;
 - indexar sin permisos claros.
+- implementarlo por obligacion conceptual antes de entender que conocimiento concreto debe recuperar.
 
 ## Estado esperado en el portafolio
 
-Proyecto visible del punto `2`, especializado en retrieval y grounding.
+Proyecto visible del punto `2`, especializado en retrieval y grounding. Debe madurar cuando se defina mejor que valor aporta al portafolio y como se integra con permisos, assets y experiencias visibles.

@@ -4,6 +4,8 @@
 
 `other-gpt` es el frontend satelite principal del portafolio. Su trabajo es ofrecer una experiencia conversacional multimodal usable por personas, no convertirse en el backend central de auth, RAG, costos o operaciones.
 
+Es uno de los proyectos publicos/demostrables principales del portafolio. Para exponerse fuera del entorno local necesita delegar acceso, usuarios y roles a `auth-service`.
+
 ## Punto(s) del learning path
 
 - Principal: `4`.
@@ -59,7 +61,7 @@
 
 - seguir siendo el satelite principal del punto `4`;
 - convertirse en la interfaz mas visible del futuro punto `8`;
-- delegar autenticacion a `auth-service`;
+- delegar autenticacion, usuarios y roles por proyecto a `auth-service`;
 - delegar orquestacion de modelos a `ai-gateway`;
 - delegar persistencia robusta de assets a `asset/document registry`;
 - consumir RAG y tools via `knowledge-rag` y `mcp-server` cuando corresponda.
@@ -96,6 +98,7 @@
 
 - si absorbe auth, costos, RAG y orquestacion, deja de ser satelite y vuelve a ser centro accidental del portafolio;
 - su persistencia actual no cubre el caso objetivo de logout/login con continuidad real.
+- exponerlo publicamente sin roles ni aislamiento por proyecto.
 
 ## Estado esperado en el portafolio
 

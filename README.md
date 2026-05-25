@@ -21,6 +21,8 @@ Repositorio documental del portafolio AI. Este repo es la fuente de verdad para 
 
 ## Resumen del learning path
 
+El learning path enumera habilidades importantes del portafolio; no define prioridad ni dificultad por posicion. La secuencia practica de entrega puede variar segun los recursos que se quieran exponer primero.
+
 | Punto | Capability | Proyecto principal | Consumidores / soporte |
 | --- | --- | --- | --- |
 | 1 | OpenClaw como interfaz operativa | `openclaw-ops` | `mcp-server`, `cost-console`, `auth-service` |
@@ -34,14 +36,14 @@ Repositorio documental del portafolio AI. Este repo es la fuente de verdad para 
 
 ## Proyectos del portafolio
 
-- `other-gpt`: satelite de chat multimodal y futura voz.
-- `auth-service`: producto base de autenticacion centralizada con aislamiento por proyecto.
-- `ai-gateway`: orquestacion multi-provider y politicas de inferencia.
-- `knowledge-rag`: ingest, chunking, embeddings, retrieval y citas.
-- `mcp-server`: superficie estandar de tools para apps y agentes.
-- `openclaw-ops`: interfaz operativa basada en OpenClaw y Telegram.
-- `cost-console`: dashboard de consumo, pricing y recomendacion de modelos.
-- `admin-console`: panel administrativo de usuarios, sesiones, permisos y presupuestos.
+- `other-gpt`: satelite de chat multimodal y futura voz; recurso publico/demostrable temprano.
+- `auth-service`: producto base de autenticacion centralizada con aislamiento por proyecto; necesario para exponer proyectos publicos con roles.
+- `ai-gateway`: orquestacion multi-provider y politicas de inferencia; importante, pero puede madurar despues de la primera exposicion publica.
+- `knowledge-rag`: ingest, chunking, embeddings, retrieval y citas; importante, pero secundario hasta aclarar mejor su caso de uso.
+- `mcp-server`: superficie estandar de tools para apps y agentes; puede ser necesario temprano para operar auth desde OpenClaw.
+- `openclaw-ops`: interfaz operativa basada en OpenClaw y Telegram; recurso publico/demostrable temprano y primera superficie de operaciones.
+- `cost-console`: dashboard de consumo, pricing y recomendacion de modelos; recurso publico/demostrable temprano.
+- `admin-console`: panel administrativo de usuarios, sesiones, permisos y presupuestos; ultima prioridad practica.
 
 ## Decisiones registradas
 

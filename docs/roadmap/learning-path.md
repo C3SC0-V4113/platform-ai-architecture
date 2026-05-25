@@ -2,6 +2,8 @@
 
 Este documento limpia y fija los puntos base del learning path que gobierna el portafolio. Todo el plan del portafolio existe para cubrir estos puntos de forma explicita, visible y trazable.
 
+El orden de los puntos no representa prioridad de entrega ni dificultad. Todas las habilidades son importantes para el portafolio; la secuencia practica de implementacion puede variar segun la necesidad de demostrar resultados, exponer proyectos publicos o aclarar casos de uso.
+
 ## Punto 1: OpenClaw
 
 - Nombre corto: `OpenClaw Ops`
@@ -72,3 +74,4 @@ Este documento limpia y fija los puntos base del learning path que gobierna el p
 - Un proyecto puede consumir un punto sin ser el proyecto principal de ese punto.
 - Los puntos `5` y `6` se consideran fuertemente transversales aunque tengan proyectos mas obvios.
 - `other-gpt` no es el centro del portafolio; es el satelite principal del punto `4` y entrada futura a `8`.
+- La cobertura del learning path no obliga a implementar todos los puntos al mismo tiempo ni en el orden numerico del documento.
