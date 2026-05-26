@@ -27,7 +27,7 @@ El learning path enumera habilidades importantes del portafolio; no define prior
 | --- | --- | --- | --- |
 | 1 | OpenClaw como interfaz operativa | `openclaw-ops` | `mcp-server`, `cost-console`, `auth-service` |
 | 2 | RAG y conocimiento recuperable | `knowledge-rag` | `other-gpt`, `mcp-server`, `ai-gateway` |
-| 3 | MCP y tools reutilizables | `mcp-server` | `other-gpt`, `openclaw-ops` |
+| 3 | MCP y tools reutilizables | `mcp-server` | `other-gpt`, `openclaw-ops`, `auth-service` |
 | 4 | Frontend conversacional | `other-gpt` | `auth-service`, `ai-gateway` |
 | 5 | Seguridad y gobierno | transversal | todos los proyectos |
 | 6 | Orquestacion multi-provider | `ai-gateway` | `other-gpt`, `cost-console`, `mcp-server` |
@@ -37,11 +37,11 @@ El learning path enumera habilidades importantes del portafolio; no define prior
 ## Proyectos del portafolio
 
 - `other-gpt`: satelite de chat multimodal y futura voz; recurso publico/demostrable temprano.
-- `auth-service`: producto base de autenticacion centralizada con aislamiento por proyecto; necesario para exponer proyectos publicos con roles.
+- `auth-service`: producto base de autenticacion centralizada con aislamiento por proyecto; necesario para exponer proyectos publicos con roles y operar accesos desde OpenClaw.
 - `ai-gateway`: orquestacion multi-provider, control-plane de proveedores y politicas de inferencia; importante, pero puede madurar despues de la primera exposicion publica.
 - `knowledge-rag`: ingest, chunking, embeddings, retrieval y citas; importante, pero secundario hasta aclarar mejor su caso de uso.
 - `mcp-server`: superficie estandar de tools para apps y agentes; puede ser necesario temprano para operar auth desde OpenClaw.
-- `openclaw-ops`: interfaz operativa basada en OpenClaw y Telegram; recurso publico/demostrable temprano y primera superficie de operaciones.
+- `openclaw-ops`: interfaz operativa basada en OpenClaw y Telegram; recurso publico/demostrable temprano y primera superficie admin para acciones delegadas de auth.
 - `cost-console`: dashboard de consumo, pricing y recomendacion de modelos; recurso publico/demostrable temprano.
 - `admin-console`: panel administrativo de usuarios, sesiones, permisos y presupuestos; ultima prioridad practica.
 
@@ -52,6 +52,7 @@ El learning path enumera habilidades importantes del portafolio; no define prior
 - [ADR 0003](./docs/adr/0003-centralize-auth-with-project-isolation.md): auth-service controla identidad con aislamiento por proyecto.
 - [ADR 0004](./docs/adr/0004-separate-chat-persistence-assets-rag-and-mcp.md): separar persistencia de chat, registro de assets, RAG y MCP.
 - [ADR 0005](./docs/adr/0005-use-ai-gateway-as-provider-control-plane.md): usar ai-gateway como control-plane de proveedores y respetar configuracion explicita.
+- [ADR 0006](./docs/adr/0006-auth-service-runtime-quality-and-hosting.md): fijar runtime, tooling de calidad, hosting inicial y OpenClaw como superficie admin de auth.
 
 ## Como continuar
 

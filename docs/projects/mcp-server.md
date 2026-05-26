@@ -36,6 +36,21 @@ Puede ser necesario temprano como mecanismo para que `openclaw-ops` ejecute oper
 - archivos originales;
 - usuarios maestros;
 - pricing can?nico.
+- reglas canonicas de permisos de `auth-service`.
+
+## Tools de auth esperadas
+
+Como evolucion inmediata despues de levantar la API de `auth-service`, puede exponer tools para que `openclaw-ops` opere auth:
+
+- `auth.createUser`;
+- `auth.assignProjectRole`;
+- `auth.revokeProjectAccess`;
+- `auth.revokeSession`;
+- `auth.banUser`;
+- `auth.listProjectUsers`;
+- `auth.getUserAccessStatus`.
+
+Estas tools deben consumir el API de `auth-service`; no deben escribir directo en la base de datos.
 
 ## Con quien habla
 

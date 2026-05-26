@@ -4,7 +4,9 @@
 
 Producto base de autenticacion del portafolio. Centraliza identidad, sesiones, alta de usuarios, roles y permisos para apps actuales y futuras.
 
-Su adopcion inicial se enfoca en proyectos publicos o demostrables del portafolio, especialmente `other-gpt`, `cost-console` y `openclaw-ops`. La meta temprana no es conectar todo el ecosistema, sino permitir exponer esos proyectos con usuarios y roles separados por proyecto.
+Su adopcion inicial se enfoca en proyectos publicos o demostrables del portafolio, especialmente `other-gpt` y `cost-console`. La meta temprana no es conectar todo el ecosistema, sino permitir exponer esos proyectos con usuarios y roles separados por proyecto.
+
+`openclaw-ops` no se modela inicialmente como una app con roles normales de usuario final. Opera como superficie administrativa global del portafolio para crear usuarios, cambiar roles, revocar sesiones, banear usuarios y consultar accesos. Esas acciones siguen viviendo en `auth-service`; OpenClaw solo las invoca mediante API, tools o MCP.
 
 ## Punto(s) del learning path
 
@@ -21,11 +23,44 @@ Su adopcion inicial se enfoca en proyectos publicos o demostrables del portafoli
 
 ## Capacidades operativas iniciales
 
+- levantar una API `Fastify` con `TypeScript`;
+- conectar la API a `PostgreSQL`;
+- registrar usuarios con email y password;
+- iniciar y cerrar sesiones;
+- persistir y revocar sesiones;
 - crear usuarios para un proyecto especifico;
 - promover usuarios a roles superiores por proyecto;
 - denegar o revocar acceso por proyecto;
 - consultar usuarios, roles y estado de acceso por proyecto;
-- exponer esas acciones primero para `openclaw-ops`, idealmente mediante tools o MCP.
+- auditar acciones administrativas;
+- exponer esas acciones para `openclaw-ops` como evolucion inmediata mediante tools o MCP.
+
+## Modelo de seguridad inicial
+
+- Los roles de usuario final son por proyecto.
+- Un rol de `other-gpt` no otorga permisos en `cost-console`.
+- Un admin de `cost-console` no administra `other-gpt` salvo que tenga una membresia explicita ahi.
+- Un usuario puede existir en varios proyectos, pero cada acceso depende de una membresia separada.
+- OpenClaw usa una identidad operativa separada, no una cuenta de usuario final comun.
+- OpenClaw se autoriza mediante credencial de servicio, token o mecanismo equivalente.
+- Cada operacion administrativa de OpenClaw debe indicar `targetProjectId` cuando afecte usuarios, roles o sesiones de un proyecto.
+- Toda operacion administrativa debe generar auditoria con actor, operacion, proyecto objetivo, usuario afectado, timestamp y resultado.
+
+## Evolucion MCP/tools
+
+La primera fase termina cuando la API esta levantada, conectada a la base de datos y puede administrar usuarios, sesiones y roles por proyecto.
+
+La segunda fase inmediata expone operaciones administrativas para `openclaw-ops` mediante `mcp-server` o integracion equivalente. Las tools consumen el API de `auth-service`; no escriben directo en la base de datos.
+
+Tools iniciales esperadas:
+
+- `auth.createUser`;
+- `auth.assignProjectRole`;
+- `auth.revokeProjectAccess`;
+- `auth.revokeSession`;
+- `auth.banUser`;
+- `auth.listProjectUsers`;
+- `auth.getUserAccessStatus`.
 
 ## Stack recomendado
 
@@ -33,6 +68,25 @@ Su adopcion inicial se enfoca en proyectos publicos o demostrables del portafoli
 - `TypeScript`
 - `Zod`
 - `PostgreSQL`
+- `Prisma`
+- `Pino`
+- `Vitest`
+
+## Calidad y tooling
+
+- `TypeScript` en modo estricto.
+- `ESLint` con flat config y reglas para TypeScript.
+- `Prettier` para formato.
+- `Husky` y `lint-staged` para checks antes de commit.
+- Scripts minimos: `typecheck`, `lint`, `test`, `build`.
+
+## Hosting inicial
+
+- Base de datos recomendada inicial: `Neon Free`.
+- API gratis inicial: `Render Free`, `Koyeb Free` o `Vercel Hobby` para pruebas.
+- API pagada recomendada simple: `Render Starter`.
+- API pagada barata alternativa: `Fly.io shared-cpu` o `Koyeb micro`.
+- `Vercel` queda como opcion serverless si se prioriza integracion con frontends alojados ahi, aceptando que no es el default para una API Fastify tradicional.
 
 ## Que guarda
 
@@ -65,7 +119,9 @@ Su adopcion inicial se enfoca en proyectos publicos o demostrables del portafoli
 ## Riesgos
 
 - sobrecomplicar el modelo de identidad demasiado pronto;
-- mezclar accidentalmente credenciales entre proyectos.
+- mezclar accidentalmente credenciales o roles entre proyectos;
+- tratar OpenClaw como backend maestro en vez de superficie operativa;
+- permitir operaciones administrativas sin auditoria suficiente;
 - bloquear la exposicion de proyectos publicos esperando una consola administrativa completa.
 
 ## Estado esperado en el portafolio

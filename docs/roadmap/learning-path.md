@@ -26,7 +26,7 @@ El orden de los puntos no representa prioridad de entrega ni dificultad. Todas l
 - Objetivo: exponer tools reutilizables para apps y agentes.
 - Capability: capa estandar de herramientas y contratos de tool use.
 - Proyecto principal: `mcp-server`.
-- Consumidores o soporte: `other-gpt`, `openclaw-ops`.
+- Consumidores o soporte: `other-gpt`, `openclaw-ops`, `auth-service`.
 
 ## Punto 4: Frontend
 

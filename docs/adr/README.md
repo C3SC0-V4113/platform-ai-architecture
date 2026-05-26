@@ -21,3 +21,4 @@ Este directorio contiene las Architecture Decision Records del portafolio.
 - [0003-centralize-auth-with-project-isolation.md](./0003-centralize-auth-with-project-isolation.md)
 - [0004-separate-chat-persistence-assets-rag-and-mcp.md](./0004-separate-chat-persistence-assets-rag-and-mcp.md)
 - [0005-use-ai-gateway-as-provider-control-plane.md](./0005-use-ai-gateway-as-provider-control-plane.md)
+- [0006-auth-service-runtime-quality-and-hosting.md](./0006-auth-service-runtime-quality-and-hosting.md)
