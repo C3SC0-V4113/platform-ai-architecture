@@ -55,10 +55,15 @@ El orden de los puntos no representa prioridad de entrega ni dificultad. Todas l
 ## Punto 7: Costos
 
 - Nombre corto: `Cost Intelligence`
-- Objetivo: medir consumo, pricing, presupuestos y recomendacion de modelo.
-- Capability: observabilidad y decision economica.
+- Objetivo: estimar cuanto costaria un chat, una carga de embeddings y una consulta a base vectorial, separando tokens, contexto y etapas del pipeline.
+- Capability: token accounting, calculadora de embeddings, costo de retrieval y simulacion economica de arquitecturas RAG.
 - Proyecto principal: `cost-console`.
 - Consumidores o soporte: `ai-gateway`, `other-gpt`, `openclaw-ops`.
+- Cobertura minima esperada:
+  - calcular tokens de `input`, `output` y contexto enviados en cada llamada de chat;
+  - estimar el costo de una sesion o flujo conversacional, no solo de un request aislado;
+  - calcular los tokens y el costo de embeddings durante la carga inicial hacia una base vectorial;
+  - calcular los tokens y el costo de embeddings y contexto en cada consulta a la base vectorial.
 
 ## Punto 8: Voz
 

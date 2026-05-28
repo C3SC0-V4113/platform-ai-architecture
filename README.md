@@ -31,7 +31,7 @@ El learning path enumera habilidades importantes del portafolio; no define prior
 | 4 | Frontend conversacional | `other-gpt` | `auth-service`, `ai-gateway` |
 | 5 | Seguridad y gobierno | transversal | todos los proyectos |
 | 6 | Orquestacion multi-provider | `ai-gateway` | `other-gpt`, `cost-console`, `mcp-server` |
-| 7 | Costos, pricing y observabilidad | `cost-console` | `ai-gateway`, `other-gpt`, `openclaw-ops` |
+| 7 | Calculadora de tokens, embeddings y costo RAG | `cost-console` | `ai-gateway`, `other-gpt`, `openclaw-ops` |
 | 8 | Voz | `other-gpt` | `ai-gateway` |
 
 ## Proyectos del portafolio
@@ -42,7 +42,7 @@ El learning path enumera habilidades importantes del portafolio; no define prior
 - `knowledge-rag`: ingest, chunking, embeddings, retrieval y citas; importante, pero secundario hasta aclarar mejor su caso de uso.
 - `mcp-server`: superficie estandar de tools para apps y agentes; puede ser necesario temprano para operar auth desde OpenClaw.
 - `openclaw-ops`: interfaz operativa basada en OpenClaw y Telegram; recurso publico/demostrable temprano y primera superficie admin para acciones delegadas de auth.
-- `cost-console`: dashboard de consumo, pricing y recomendacion de modelos; recurso publico/demostrable temprano.
+- `cost-console`: playground fullstack para calcular costo de chat, embeddings y consultas vectoriales, con persistencia propia en PostgreSQL; recurso publico/demostrable temprano.
 - `admin-console`: panel administrativo de usuarios, sesiones, permisos y presupuestos; ultima prioridad practica.
 
 ## Decisiones registradas
@@ -53,6 +53,7 @@ El learning path enumera habilidades importantes del portafolio; no define prior
 - [ADR 0004](./docs/adr/0004-separate-chat-persistence-assets-rag-and-mcp.md): separar persistencia de chat, registro de assets, RAG y MCP.
 - [ADR 0005](./docs/adr/0005-use-ai-gateway-as-provider-control-plane.md): usar ai-gateway como control-plane de proveedores y respetar configuracion explicita.
 - [ADR 0006](./docs/adr/0006-auth-service-runtime-quality-and-hosting.md): fijar runtime, tooling de calidad, hosting inicial y OpenClaw como superficie admin de auth.
+- [ADR 0007](./docs/adr/0007-define-cost-console-as-token-and-rag-cost-playground.md): definir cost-console como playground fullstack de costos de chat y RAG con PostgreSQL desde el inicio.
 
 ## Como continuar
 
