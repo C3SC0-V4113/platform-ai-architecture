@@ -49,8 +49,8 @@ Tambien actuara como control-plane de proveedores para capacidades multimodales:
 - proveedores como OpenAI, Gemini, Claude y eventualmente ElevenLabs;
 - `auth-service`;
 - `asset/document registry`;
-- `knowledge-rag` cuando necesite grounding;
 - `cost-console` para pricing y observabilidad.
+- servicios externos de grounding solo si una integracion posterior lo justifica.
 
 ## Reglas de seleccion de proveedor
 

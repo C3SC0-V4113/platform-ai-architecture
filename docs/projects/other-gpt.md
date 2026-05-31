@@ -65,7 +65,8 @@ Es uno de los proyectos publicos/demostrables principales del portafolio. Para e
 - delegar autenticacion, usuarios y roles por proyecto a `auth-service`;
 - delegar orquestacion de modelos a `ai-gateway`;
 - delegar persistencia robusta de assets a `asset/document registry`;
-- consumir RAG y tools via `knowledge-rag` y `mcp-server` cuando corresponda.
+- consumir tools via `mcp-server` cuando corresponda;
+- considerar integraciones futuras con servicios externos de RAG solo si aportan valor claro a la experiencia.
 
 ## Configuracion futura de proveedores
 
@@ -108,7 +109,6 @@ Si el usuario o proyecto define un proveedor explicito, `other-gpt` debe enviarl
 - `auth-service`
 - `ai-gateway`
 - `asset/document registry`
-- `knowledge-rag` de forma indirecta
 - `mcp-server` para tools
 
 ## Riesgos

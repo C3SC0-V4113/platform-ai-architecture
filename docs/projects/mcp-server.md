@@ -4,7 +4,7 @@
 
 Exponer tools reutilizables para apps, agentes y OpenClaw a traves de una superficie estandar.
 
-Puede ser necesario temprano como mecanismo para que `openclaw-ops` ejecute operaciones controladas sobre `auth-service`, especialmente crear usuarios, promover roles y denegar accesos por proyecto.
+Puede ser necesario temprano como mecanismo para que `openclaw-ops` ejecute operaciones controladas sobre `auth-service`, especialmente crear usuarios, promover roles y denegar accesos por proyecto. Para auth admin, la familia de tools debe modelarse como fachada operativa con contrato comun, idempotencia y aprobacion por riesgo.
 
 ## Punto(s) del learning path
 
@@ -48,13 +48,29 @@ Como evolucion inmediata despues de levantar la API de `auth-service`, puede exp
 - `auth.revokeSession`;
 - `auth.banUser`;
 - `auth.listProjectUsers`;
-- `auth.getUserAccessStatus`.
+- `auth.getUserAccessStatus`;
+- `auth.listPendingApprovals`;
+- `auth.decideApproval`.
 
 Estas tools deben consumir el API de `auth-service`; no deben escribir directo en la base de datos.
 
+## Contrato operativo minimo
+
+- Las mutaciones usan un sobre comun con `targetProjectId`, `reason`, `idempotencyKey`, `ticketRef?`, `channel` y `payload`.
+- La identidad del actor no viaja en el payload; `mcp-server` la inyecta desde la sesion real de OpenClaw y la credencial de servicio.
+- Las respuestas mutantes devuelven `status`, `operationId`, `approvalId?`, `auditEventId`, `message` y `result`.
+- Los valores minimos de `status` en v1 son `completed`, `pending_approval`, `denied` y `failed`.
+- `mcp-server` valida schema MCP y propaga `correlationId`, pero la decision canonica de permisos, aprobacion y auditoria vive en `auth-service`.
+
+## Politica minima de ejecucion
+
+- Las lecturas ejecutan directo.
+- Las mutaciones de bajo riesgo pueden ejecutar directo si `auth-service` lo permite.
+- Las mutaciones de alto riesgo deben devolver `pending_approval` y luego resolverse con `auth.decideApproval`.
+- `mcp-server` no debe exponer una tool generica tipo `runAdminAction`; la v1 usa tools discretas y schemas explicitos.
+
 ## Con quien habla
 
-- `knowledge-rag`
 - `ai-gateway`
 - `auth-service`
 - `cost-console`
@@ -65,6 +81,7 @@ Estas tools deben consumir el API de `auth-service`; no deben escribir directo e
 
 - usar MCP como sustituto de APIs internas normales;
 - exponer tools sin scopes ni politicas claras.
+- intentar mover la decision de riesgo o aprobacion fuera de `auth-service`.
 - implementar demasiadas tools antes de tener claro que operaciones necesita la exposicion publica inicial.
 
 ## Estado esperado en el portafolio

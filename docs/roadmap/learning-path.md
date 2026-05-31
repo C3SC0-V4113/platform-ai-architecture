@@ -15,10 +15,10 @@ El orden de los puntos no representa prioridad de entrega ni dificultad. Todas l
 ## Punto 2: RAG
 
 - Nombre corto: `Knowledge RAG`
-- Objetivo: indexar y recuperar conocimiento con citas y permisos.
+- Objetivo: indexar y recuperar conocimiento con citas sobre un corpus externo curado.
 - Capability: ingestion, embeddings, chunking, retrieval, grounding.
 - Proyecto principal: `knowledge-rag`.
-- Consumidores o soporte: `other-gpt`, `mcp-server`, `ai-gateway`.
+- Consumidores o soporte: `Google Drive` como fuente externa; integracion futura opcional con el ecosistema central.
 
 ## Punto 3: MCP
 
@@ -39,8 +39,8 @@ El orden de los puntos no representa prioridad de entrega ni dificultad. Todas l
 ## Punto 5: Seguridad
 
 - Nombre corto: `Security and Governance`
-- Objetivo: aplicar control de acceso, scopes, aislamiento, limpieza de datos y politicas de uso.
-- Capability: seguridad transversal.
+- Objetivo: aplicar control de acceso, scopes, aislamiento, aprobacion operativa, auditoria y politicas de uso.
+- Capability: seguridad transversal y gobierno operativo.
 - Proyecto principal: transversal.
 - Consumidores o soporte: todos los proyectos.
 

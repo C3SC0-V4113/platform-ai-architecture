@@ -6,7 +6,7 @@ Usar OpenClaw como interfaz operativa para consumir skills, tools y canales como
 
 Tambien puede servir como primera superficie practica para administrar accesos del portafolio, consumiendo `auth-service` mediante API, tools o MCP.
 
-Para `auth-service`, OpenClaw se trata inicialmente como una superficie administrativa global, no como una app con roles normales de usuario final. Puede operar usuarios, roles y sesiones del portafolio, pero no guarda identidad maestra ni duplica reglas de permisos.
+Para `auth-service`, OpenClaw se trata inicialmente como una superficie administrativa global, no como una app con roles normales de usuario final. Puede operar usuarios, roles y sesiones del portafolio, pero no guarda identidad maestra ni duplica reglas de permisos. Cuando la accion sea sensible, OpenClaw debe aceptar que la tool abra una aprobacion pendiente en lugar de ejecutar directo.
 
 ## Punto(s) del learning path
 
@@ -53,9 +53,16 @@ Para `auth-service`, OpenClaw se trata inicialmente como una superficie administ
 - revocar sesiones;
 - banear usuarios;
 - consultar estado de usuarios y permisos;
+- listar aprobaciones pendientes;
+- aprobar o rechazar solicitudes pendientes con un segundo operador;
 - ejecutar estas acciones mediante tools o MCP cuando exista la segunda fase de integracion.
 
 Cada operacion administrativa debe ser autorizada por `auth-service` y quedar auditada ahi con actor, operacion, proyecto objetivo, usuario afectado, timestamp y resultado.
+
+OpenClaw debe operar este flujo con dos reglas duras:
+
+- el operador que solicita una accion sensible no la autoaprueba;
+- las mutaciones deben reenviar `reason`, `idempotencyKey` y `channel` para que `auth-service` mantenga trazabilidad e idempotencia.
 
 ## Con quien habla
 
@@ -70,6 +77,7 @@ Cada operacion administrativa debe ser autorizada por `auth-service` y quedar au
 - mezclar operacion con identidad central;
 - duplicar logica de permisos que debe vivir en `auth-service`.
 - operar acciones admin sin trazabilidad suficiente en `auth-service`.
+- asumir que toda tool mutante debe ejecutar directo aunque `auth-service` pida aprobacion.
 
 ## Estado esperado en el portafolio
 

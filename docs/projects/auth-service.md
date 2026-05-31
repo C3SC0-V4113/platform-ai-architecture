@@ -6,7 +6,7 @@ Producto base de autenticacion del portafolio. Centraliza identidad, sesiones, a
 
 Su adopcion inicial se enfoca en proyectos publicos o demostrables del portafolio, especialmente `other-gpt` y `cost-console`. La meta temprana no es conectar todo el ecosistema, sino permitir exponer esos proyectos con usuarios y roles separados por proyecto.
 
-`openclaw-ops` no se modela inicialmente como una app con roles normales de usuario final. Opera como superficie administrativa global del portafolio para crear usuarios, cambiar roles, revocar sesiones, banear usuarios y consultar accesos. Esas acciones siguen viviendo en `auth-service`; OpenClaw solo las invoca mediante API, tools o MCP.
+`openclaw-ops` no se modela inicialmente como una app con roles normales de usuario final. Opera como superficie administrativa global del portafolio para crear usuarios, cambiar roles, revocar sesiones, banear usuarios y consultar accesos. Esas acciones siguen viviendo en `auth-service`; OpenClaw solo las invoca mediante API, tools o MCP, y `auth-service` decide si ejecuta directo o si abre una aprobacion previa.
 
 ## Punto(s) del learning path
 
@@ -45,6 +45,9 @@ Su adopcion inicial se enfoca en proyectos publicos o demostrables del portafoli
 - OpenClaw se autoriza mediante credencial de servicio, token o mecanismo equivalente.
 - Cada operacion administrativa de OpenClaw debe indicar `targetProjectId` cuando afecte usuarios, roles o sesiones de un proyecto.
 - Toda operacion administrativa debe generar auditoria con actor, operacion, proyecto objetivo, usuario afectado, timestamp y resultado.
+- Las acciones de alto riesgo deben requerir aprobacion separada.
+- El solicitante no puede autoaprobar su propia accion.
+- La accion aprobada debe revalidarse antes de ejecutarse.
 
 ## Evolucion MCP/tools
 
@@ -60,7 +63,65 @@ Tools iniciales esperadas:
 - `auth.revokeSession`;
 - `auth.banUser`;
 - `auth.listProjectUsers`;
-- `auth.getUserAccessStatus`.
+- `auth.getUserAccessStatus`;
+- `auth.listPendingApprovals`;
+- `auth.decideApproval`.
+
+Contrato v1 esperado para mutaciones:
+
+- request comun con `targetProjectId`, `reason`, `idempotencyKey`, `ticketRef?`, `channel` y `payload`;
+- response comun con `status`, `operationId`, `approvalId?`, `auditEventId`, `message` y `result`;
+- valores minimos de `status`: `completed`, `pending_approval`, `denied`, `failed`.
+
+Politica minima por riesgo:
+
+- lecturas y cambios no administrativos por proyecto pueden ejecutar directo;
+- `assignProjectRole` a rol administrativo, `revokeSession` masivo y `banUser` deben crear aprobacion previa;
+- `auth-service` decide el riesgo final y puede exigir aprobacion adicional aunque la tool sea la misma.
+
+## Aprobacion y auditoria admin
+
+Para esta familia de tools, `auth-service` debe sostener dos piezas de estado:
+
+- auditoria append-only de eventos admin, con hitos como `requested`, `pending_approval`, `approved`, `rejected`, `completed`, `denied` y `failed`;
+- estado vivo de aprobacion para acciones pendientes, con expiracion por defecto de `24h`.
+
+La auditoria debe permitir reconstruir una accion por `operationId`, `correlationId` e `idempotencyKey`, sin guardar secretos o credenciales en snapshots.
+
+Tabla `admin_action_audit` minima esperada:
+
+- `id`;
+- `operationId`;
+- `eventType`;
+- `operationName`;
+- `occurredAt`;
+- `servicePrincipalId`;
+- `operatorUserId`;
+- `sourceChannel`;
+- `targetProjectId?`;
+- `targetUserId?`;
+- `targetSessionId?`;
+- `approvalId?`;
+- `reason`;
+- `idempotencyKey`;
+- `correlationId`;
+- `requestSnapshotJson` redacted;
+- `resultSnapshotJson` redacted;
+- `policyVersion`;
+- `errorCode?`.
+
+Tabla `admin_approval` minima esperada:
+
+- `id`;
+- `operationId`;
+- `status`;
+- `requestedAt`;
+- `requestedByUserId`;
+- `requiredApprovalLevel`;
+- `approvedByUserId?`;
+- `decidedAt?`;
+- `decisionReason?`;
+- `expiresAt`.
 
 ## Stack recomendado
 
@@ -122,6 +183,7 @@ Tools iniciales esperadas:
 - mezclar accidentalmente credenciales o roles entre proyectos;
 - tratar OpenClaw como backend maestro en vez de superficie operativa;
 - permitir operaciones administrativas sin auditoria suficiente;
+- permitir aprobaciones sin separacion real entre solicitante y aprobador;
 - bloquear la exposicion de proyectos publicos esperando una consola administrativa completa.
 
 ## Estado esperado en el portafolio
