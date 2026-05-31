@@ -26,7 +26,7 @@ El learning path enumera habilidades importantes del portafolio; no define prior
 | Punto | Capability | Proyecto principal | Consumidores / soporte |
 | --- | --- | --- | --- |
 | 1 | OpenClaw como interfaz operativa | `openclaw-ops` | `mcp-server`, `cost-console`, `auth-service` |
-| 2 | RAG y conocimiento recuperable | `knowledge-rag` | `Google Drive` como fuente externa; integracion futura opcional con el ecosistema |
+| 2 | RAG y conocimiento recuperable | `knowledge-rag` | `Google Drive` y `GitHub` como fuentes externas curadas; integracion futura opcional con el ecosistema |
 | 3 | MCP y tools reutilizables | `mcp-server` | `other-gpt`, `openclaw-ops`, `auth-service` |
 | 4 | Frontend conversacional | `other-gpt` | `auth-service`, `ai-gateway` |
 | 5 | Seguridad y gobierno | transversal | todos los proyectos |
@@ -39,7 +39,7 @@ El learning path enumera habilidades importantes del portafolio; no define prior
 - `other-gpt`: satelite de chat multimodal y futura voz; recurso publico/demostrable temprano.
 - `auth-service`: producto base de autenticacion centralizada con aislamiento por proyecto; necesario para exponer proyectos publicos con roles, aprobaciones y auditoria de accesos operados desde OpenClaw.
 - `ai-gateway`: orquestacion multi-provider, control-plane de proveedores y politicas de inferencia; importante, pero puede madurar despues de la primera exposicion publica.
-- `knowledge-rag`: app RAG externa al ecosistema central, enfocada en sincronizar una carpeta de Google Drive y demostrar ingestion, retrieval y citas de punta a punta.
+- `knowledge-rag`: app RAG externa al ecosistema central, enfocada en sincronizar un corpus universitario curado desde `Google Drive` y `GitHub` para demostrar ingestion, retrieval y citas de punta a punta.
 - `mcp-server`: superficie estandar de tools para apps y agentes; puede ser necesario temprano para operar auth desde OpenClaw con contratos, aprobacion por riesgo e idempotencia.
 - `openclaw-ops`: interfaz operativa basada en OpenClaw y Telegram; recurso publico/demostrable temprano y primera superficie admin para acciones delegadas de auth con aprobacion separada.
 - `cost-console`: playground fullstack para calcular costo de chat, embeddings y consultas vectoriales, con persistencia propia en PostgreSQL; recurso publico/demostrable temprano.
@@ -55,7 +55,8 @@ El learning path enumera habilidades importantes del portafolio; no define prior
 - [ADR 0006](./docs/adr/0006-auth-service-runtime-quality-and-hosting.md): fijar runtime, tooling de calidad, hosting inicial y OpenClaw como superficie admin de auth.
 - [ADR 0007](./docs/adr/0007-define-cost-console-as-token-and-rag-cost-playground.md): definir cost-console como playground fullstack de costos de chat y RAG con PostgreSQL desde el inicio.
 - [ADR 0008](./docs/adr/0008-operate-auth-admin-via-mcp-with-risk-based-approval.md): operar auth admin via MCP con aprobacion por riesgo y auditoria en auth-service.
-- [ADR 0009](./docs/adr/0009-position-knowledge-rag-as-external-google-drive-rag-app.md): posicionar knowledge-rag como app RAG externa basada en una carpeta de Google Drive.
+- [ADR 0009](./docs/adr/0009-position-knowledge-rag-as-external-google-drive-rag-app.md): posicionar knowledge-rag como app RAG externa basada inicialmente en Google Drive.
+- [ADR 0010](./docs/adr/0010-expand-knowledge-rag-to-curated-university-corpus.md): ampliar knowledge-rag a un corpus universitario curado desde Google Drive y GitHub.
 
 ## Como continuar
 

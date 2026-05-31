@@ -18,7 +18,7 @@ El orden de los puntos no representa prioridad de entrega ni dificultad. Todas l
 - Objetivo: indexar y recuperar conocimiento con citas sobre un corpus externo curado.
 - Capability: ingestion, embeddings, chunking, retrieval, grounding.
 - Proyecto principal: `knowledge-rag`.
-- Consumidores o soporte: `Google Drive` como fuente externa; integracion futura opcional con el ecosistema central.
+- Consumidores o soporte: `Google Drive` y `GitHub` como fuentes externas curadas; integracion futura opcional con el ecosistema central.
 
 ## Punto 3: MCP
 
