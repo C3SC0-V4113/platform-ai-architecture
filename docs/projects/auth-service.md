@@ -223,20 +223,25 @@ registra el progreso real frente a la vision de este documento; no la reescribe.
   con el envelope comun de mutacion/response, replay idempotente por
   `(servicePrincipalId, idempotencyKey)`, auditoria append-only, y los estados
   `completed`/`denied`/`failed`. Operaciones: lecturas `listProjectUsers`,
-  `getUserAccessStatus`, `listPendingApprovals`, y la mutacion de bajo riesgo
-  `auth.createUser`.
+  `getUserAccessStatus`, `listPendingApprovals`, y mutaciones de bajo riesgo
+  `auth.createUser` y `auth.unbanUser`.
+- Ciclo de aprobacion por riesgo: las operaciones de alto riesgo registran un
+  `AdminOperation` en `PENDING_APPROVAL` + `admin_approval` (expiracion 24h) en
+  vez de ejecutar; `auth.decideApproval` permite a un segundo operador aprobar o
+  rechazar, bloquea la autoaprobacion, respeta la expiracion y ejecuta el efecto
+  diferido al aprobar. Primera operacion de alto riesgo: `auth.banUser`.
 
 ### Aun no implementado (definido y aceptado en el repo)
 
 La vision MCP/admin de este documento y de ADR 0008 esta definida en los ADR del
 repo `Identity-Service` (ADR 0008 superficie admin con service principal y
-aprobacion por riesgo; ADR 0009 readmision de membresias revocadas). La fundacion
-y el camino directo ya estan codificados; falta la capa de riesgo/aprobacion:
+aprobacion por riesgo; ADR 0009 readmision de membresias revocadas). La fundacion,
+el camino directo y el ciclo de aprobacion ya estan codificados; faltan las
+operaciones de membresia/sesion que reutilizan los invariantes de membresia:
 
-- politica de riesgo y aprobacion por segundo operador (`pending_approval` +
-  `decideApproval`) sobre `admin_approval`;
-- el resto de operaciones: `assignProjectRole`, `revokeProjectAccess`,
-  `revokeSession`, `banUser`/`unbanUser` y readmision de membresias revocadas.
+- `assignProjectRole` (alto riesgo al asignar rol admin), `revokeProjectAccess`,
+  `revokeSession` (alto riesgo en alcance masivo) y readmision de membresias
+  revocadas (`readmitProjectMembership`, alto riesgo, ADR 0009).
 
 ### Divergencias de contrato a tener en cuenta para el ecosistema
 
