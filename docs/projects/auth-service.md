@@ -222,7 +222,10 @@ repo `Identity-Service` (ADR 0008 superficie admin con service principal y
 aprobacion por riesgo; ADR 0009 readmision de membresias revocadas) pero todavia
 no esta codificada:
 
-- identidad de servicio (machine auth) por bearer token para `mcp-server`/`openclaw-ops`;
+- identidad de servicio (machine auth) por bearer token para `mcp-server`/`openclaw-ops`
+  (token global, proyecto por operacion via `targetProjectId`, sin re-login por
+  proyecto; alcance least-privilege con flag `allProjects` para `openclaw-ops` o
+  allow-list explicito de proyectos);
 - envelope comun de mutacion/response y la familia de operaciones `auth.*`;
 - tablas `admin_action_audit` y `admin_approval` con politica de riesgo y aprobacion por segundo operador;
 - `banUser`/`unbanUser` por HTTP y readmision de membresias revocadas.
