@@ -227,9 +227,9 @@ registra el progreso real frente a la vision de este documento; no la reescribe.
   `auth.createUser` y `auth.unbanUser`.
 - Ciclo de aprobacion por riesgo: las operaciones de alto riesgo registran un
   `AdminOperation` en `PENDING_APPROVAL` + `admin_approval` (expiracion 24h) en
-  vez de ejecutar; `auth.decideApproval` permite a un segundo operador aprobar o
-  rechazar, bloquea la autoaprobacion, respeta la expiracion y ejecuta el efecto
-  diferido al aprobar. Primera operacion de alto riesgo: `auth.banUser`.
+  vez de ejecutar; `auth.decideApproval` confirma (approve) o cancela (reject) la
+  accion como un segundo paso deliberado, respeta la expiracion y ejecuta el
+  efecto diferido al aprobar. Primera operacion de alto riesgo: `auth.banUser`.
 
 ### Aun no implementado (definido y aceptado en el repo)
 
@@ -254,3 +254,16 @@ operaciones de membresia/sesion que reutilizan los invariantes de membresia:
   `sameSite=lax`, TTL `24h`), util para `other-gpt` que delega autenticacion: el
   cliente valida con `GET /projects/:slug/auth/session` y no necesita leer el token.
 - Las sesiones son por proyecto: una sesion de un proyecto no autentica a otro.
+- Divergencia con ADR 0008 de platform: la aprobacion de alto riesgo se
+  implemento como un **guard de confirmacion en dos pasos** (el mismo operador
+  puede confirmar su propia solicitud), no como la regla "el solicitante no puede
+  autoaprobar". Decision deliberada porque el portafolio corre un solo bot de
+  `openclaw-ops`; el valor es exigir un segundo paso deliberado antes de un cambio
+  sensible, no separar dos personas. Si mas adelante se conecta una segunda
+  identidad operativa, conviene reintroducir la regla de dos operadores.
+- Contrato de idempotencia: el `idempotencyKey` es unico por
+  `(servicePrincipalId, idempotencyKey)` y esta acotado a una sola operacion
+  logica. Reintentar replica el resultado de `completed`/`pending_approval`/
+  `denied`, pero un `failed` (sin efecto aplicado) se re-ejecuta al reintentar;
+  reutilizarlo para otra operacion devuelve `409 ADMIN_IDEMPOTENCY_KEY_REUSED`.
+  Los clientes (`mcp-server`) deben usar una clave unica por request.
