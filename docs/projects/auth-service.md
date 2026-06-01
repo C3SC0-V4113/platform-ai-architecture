@@ -189,3 +189,52 @@ Tabla `admin_approval` minima esperada:
 ## Estado esperado en el portafolio
 
 Producto base central y reutilizable, no simple infraestructura interna invisible. Debe habilitar primero el acceso controlado a proyectos publicos del portafolio y luego crecer hacia integraciones mas amplias.
+
+## Estado de implementacion (Identity-Service)
+
+El repo que implementa `auth-service` se llama `Identity-Service`. Esta seccion
+registra el progreso real frente a la vision de este documento; no la reescribe.
+
+### Implementado hoy
+
+- Stack: `Fastify` + `TypeScript` + `Prisma` + `PostgreSQL` + `Zod` + `Vitest`.
+- Autenticacion por proyecto, basada en cookie de sesion, bajo
+  `/projects/:slug/auth/*`: `register/email-check`, `register`, `login`,
+  `logout`, `me`, `session`.
+- Registro en dos pasos (email-check y luego alta), con login que auto-crea una
+  membresia base `ACTIVE` con rol `user` en el primer acceso a un proyecto.
+- Validador de sesion liviano `GET /projects/:slug/auth/session` (`204` valida,
+  `401` no usable) para middleware de clientes.
+- Administracion de membresias por project admin (cookie):
+  `GET /projects/:slug/me`, `memberships` (listado paginado), `audit-logs`,
+  crear, suspender, reactivar, revocar, y reemplazo de roles.
+- Gestion de sesiones por project admin: `GET /projects/:slug/sessions` y
+  `POST /projects/:slug/sessions/:sessionId/revoke`.
+- Auditoria de mutaciones de membresia (read-only, inmutable) y proteccion del
+  ultimo admin activo del proyecto.
+- Seeds: `other-gpt` (roles `user`, `pro`, `admin`) y `cost-console` (roles
+  `user`, `admin`). Bootstrap del primer admin por script (`npm run db:bootstrap-admin`).
+
+### Aun no implementado (definido y aceptado en el repo)
+
+La vision MCP/admin de este documento y de ADR 0008 esta definida en los ADR del
+repo `Identity-Service` (ADR 0008 superficie admin con service principal y
+aprobacion por riesgo; ADR 0009 readmision de membresias revocadas) pero todavia
+no esta codificada:
+
+- identidad de servicio (machine auth) por bearer token para `mcp-server`/`openclaw-ops`;
+- envelope comun de mutacion/response y la familia de operaciones `auth.*`;
+- tablas `admin_action_audit` y `admin_approval` con politica de riesgo y aprobacion por segundo operador;
+- `banUser`/`unbanUser` por HTTP y readmision de membresias revocadas.
+
+### Divergencias de contrato a tener en cuenta para el ecosistema
+
+- La autorizacion es estrictamente por proyecto: no existe rol admin global; un
+  admin solo opera dentro de su proyecto.
+- La auditoria existente es `ProjectMembershipAuditLog` (alcance membresia, sin
+  `reason`/`operationId`/`correlationId`), distinta de la `admin_action_audit`
+  planeada para la superficie MCP.
+- El contrato de sesion real es cookie httpOnly (`identity_service_session`,
+  `sameSite=lax`, TTL `24h`), util para `other-gpt` que delega autenticacion: el
+  cliente valida con `GET /projects/:slug/auth/session` y no necesita leer el token.
+- Las sesiones son por proyecto: una sesion de un proyecto no autentica a otro.
