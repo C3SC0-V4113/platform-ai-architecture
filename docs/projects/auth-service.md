@@ -214,20 +214,22 @@ registra el progreso real frente a la vision de este documento; no la reescribe.
   ultimo admin activo del proyecto.
 - Seeds: `other-gpt` (roles `user`, `pro`, `admin`) y `cost-console` (roles
   `user`, `admin`). Bootstrap del primer admin por script (`npm run db:bootstrap-admin`).
+- Fundacion de la superficie admin MCP (ADR 0008): identidad de servicio (machine
+  auth) por bearer token con alcance least-privilege (flag `allProjects` para
+  `openclaw-ops` o allow-list explicito de proyectos, sin re-login por proyecto),
+  esquema `ServicePrincipal`/`AdminOperation`/`admin_action_audit`/`admin_approval`,
+  y script de bootstrap/rotacion (`npm run db:bootstrap-service-principal`).
 
 ### Aun no implementado (definido y aceptado en el repo)
 
 La vision MCP/admin de este documento y de ADR 0008 esta definida en los ADR del
 repo `Identity-Service` (ADR 0008 superficie admin con service principal y
-aprobacion por riesgo; ADR 0009 readmision de membresias revocadas) pero todavia
-no esta codificada:
+aprobacion por riesgo; ADR 0009 readmision de membresias revocadas). La fundacion
+de identidad de servicio ya esta codificada; falta la superficie de operaciones:
 
-- identidad de servicio (machine auth) por bearer token para `mcp-server`/`openclaw-ops`
-  (token global, proyecto por operacion via `targetProjectId`, sin re-login por
-  proyecto; alcance least-privilege con flag `allProjects` para `openclaw-ops` o
-  allow-list explicito de proyectos);
-- envelope comun de mutacion/response y la familia de operaciones `auth.*`;
-- tablas `admin_action_audit` y `admin_approval` con politica de riesgo y aprobacion por segundo operador;
+- endpoints `/admin/*` con el envelope comun de mutacion/response y la familia de
+  operaciones `auth.*`;
+- politica de riesgo y aprobacion por segundo operador sobre `admin_approval`;
 - `banUser`/`unbanUser` por HTTP y readmision de membresias revocadas.
 
 ### Divergencias de contrato a tener en cuenta para el ecosistema
