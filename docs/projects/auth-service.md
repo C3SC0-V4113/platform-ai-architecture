@@ -219,18 +219,24 @@ registra el progreso real frente a la vision de este documento; no la reescribe.
   `openclaw-ops` o allow-list explicito de proyectos, sin re-login por proyecto),
   esquema `ServicePrincipal`/`AdminOperation`/`admin_action_audit`/`admin_approval`,
   y script de bootstrap/rotacion (`npm run db:bootstrap-service-principal`).
+- Superficie `/admin/*` (camino directo) autenticada solo por service principal,
+  con el envelope comun de mutacion/response, replay idempotente por
+  `(servicePrincipalId, idempotencyKey)`, auditoria append-only, y los estados
+  `completed`/`denied`/`failed`. Operaciones: lecturas `listProjectUsers`,
+  `getUserAccessStatus`, `listPendingApprovals`, y la mutacion de bajo riesgo
+  `auth.createUser`.
 
 ### Aun no implementado (definido y aceptado en el repo)
 
 La vision MCP/admin de este documento y de ADR 0008 esta definida en los ADR del
 repo `Identity-Service` (ADR 0008 superficie admin con service principal y
 aprobacion por riesgo; ADR 0009 readmision de membresias revocadas). La fundacion
-de identidad de servicio ya esta codificada; falta la superficie de operaciones:
+y el camino directo ya estan codificados; falta la capa de riesgo/aprobacion:
 
-- endpoints `/admin/*` con el envelope comun de mutacion/response y la familia de
-  operaciones `auth.*`;
-- politica de riesgo y aprobacion por segundo operador sobre `admin_approval`;
-- `banUser`/`unbanUser` por HTTP y readmision de membresias revocadas.
+- politica de riesgo y aprobacion por segundo operador (`pending_approval` +
+  `decideApproval`) sobre `admin_approval`;
+- el resto de operaciones: `assignProjectRole`, `revokeProjectAccess`,
+  `revokeSession`, `banUser`/`unbanUser` y readmision de membresias revocadas.
 
 ### Divergencias de contrato a tener en cuenta para el ecosistema
 
