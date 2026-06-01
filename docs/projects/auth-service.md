@@ -229,19 +229,21 @@ registra el progreso real frente a la vision de este documento; no la reescribe.
   `AdminOperation` en `PENDING_APPROVAL` + `admin_approval` (expiracion 24h) en
   vez de ejecutar; `auth.decideApproval` confirma (approve) o cancela (reject) la
   accion como un segundo paso deliberado, respeta la expiracion y ejecuta el
-  efecto diferido al aprobar. Primera operacion de alto riesgo: `auth.banUser`.
+  efecto diferido al aprobar.
+- Familia completa de operaciones (ADR 0008/0009): lecturas; mutaciones directas
+  `createUser`, `unbanUser`, `revokeProjectAccess`, `revokeSession` individual; y
+  de alto riesgo (gated) `banUser`, `revokeSession` masivo, `assignProjectRole` a
+  rol `admin` y `readmitProjectMembership`. `assignProjectRole` es directo para
+  roles no-admin. Reusa los invariantes de membresia (proteccion del ultimo admin
+  activo).
 
-### Aun no implementado (definido y aceptado en el repo)
+### Estado
 
-La vision MCP/admin de este documento y de ADR 0008 esta definida en los ADR del
-repo `Identity-Service` (ADR 0008 superficie admin con service principal y
-aprobacion por riesgo; ADR 0009 readmision de membresias revocadas). La fundacion,
-el camino directo y el ciclo de aprobacion ya estan codificados; faltan las
-operaciones de membresia/sesion que reutilizan los invariantes de membresia:
-
-- `assignProjectRole` (alto riesgo al asignar rol admin), `revokeProjectAccess`,
-  `revokeSession` (alto riesgo en alcance masivo) y readmision de membresias
-  revocadas (`readmitProjectMembership`, alto riesgo, ADR 0009).
+La vision MCP/admin de este documento y de ADR 0008/0009 esta **implementada** en
+`Identity-Service`. Trabajo futuro (no bloqueante): visibilidad de las mutaciones
+de maquina para project admins, politica de retencion/export del audit admin,
+policy de riesgo data-driven (`policyVersion`), y reintroducir la regla de dos
+operadores si se conecta una segunda identidad operativa.
 
 ### Divergencias de contrato a tener en cuenta para el ecosistema
 
