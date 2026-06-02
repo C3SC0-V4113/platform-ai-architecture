@@ -244,8 +244,10 @@ La vision MCP/admin de este documento y de ADR 0008/0009 esta **implementada** e
 read-only de las operaciones de maquina que afectan su proyecto mediante
 `GET /projects/:slug/admin-operations`. La clasificacion de riesgo esta
 centralizada en una policy unica (`classifyOperationRisk`, default-to-safe) y se
-persiste un `policyVersion` en cada operacion. Trabajo futuro (no bloqueante):
-politica de retencion/export del audit admin, y reintroducir la regla de dos
+persiste un `policyVersion` en cada operacion. La retencion del audit admin es un
+script local de mantenimiento (`npm run db:prune-admin-operations`, con
+`--dry-run`/`--export`) que poda solo operaciones terminales antiguas, nunca las
+`PENDING_APPROVAL`. Unico pendiente (diferido): reintroducir la regla de dos
 operadores si se conecta una segunda identidad operativa.
 
 ### Divergencias de contrato a tener en cuenta para el ecosistema
