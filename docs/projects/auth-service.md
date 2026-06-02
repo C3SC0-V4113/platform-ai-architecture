@@ -240,10 +240,12 @@ registra el progreso real frente a la vision de este documento; no la reescribe.
 ### Estado
 
 La vision MCP/admin de este documento y de ADR 0008/0009 esta **implementada** en
-`Identity-Service`. Trabajo futuro (no bloqueante): visibilidad de las mutaciones
-de maquina para project admins, politica de retencion/export del audit admin,
-policy de riesgo data-driven (`policyVersion`), y reintroducir la regla de dos
-operadores si se conecta una segunda identidad operativa.
+`Identity-Service`. Ademas, los project admins (via cookie) tienen visibilidad
+read-only de las operaciones de maquina que afectan su proyecto mediante
+`GET /projects/:slug/admin-operations`. Trabajo futuro (no bloqueante): politica
+de retencion/export del audit admin, policy de riesgo data-driven (`policyVersion`),
+y reintroducir la regla de dos operadores si se conecta una segunda identidad
+operativa.
 
 ### Divergencias de contrato a tener en cuenta para el ecosistema
 
