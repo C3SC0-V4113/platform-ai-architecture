@@ -250,6 +250,16 @@ script local de mantenimiento (`npm run db:prune-admin-operations`, con
 `PENDING_APPROVAL`. Unico pendiente (diferido): reintroducir la regla de dos
 operadores si se conecta una segunda identidad operativa.
 
+### Guias de integracion
+
+El repo `Identity-Service` publica dos guias que se comparten con los proyectos
+consumidores (viven en `docs/` de ese repo, como fuente de verdad):
+
+- guia de apps de usuario (cookie/sesion) para front-ends como `other-gpt` y
+  `cost-console`;
+- guia admin/MCP para `mcp-server`, operadores y los comandos admin (incluido el
+  prune del audit).
+
 ### Divergencias de contrato a tener en cuenta para el ecosistema
 
 - La autorizacion es estrictamente por proyecto: no existe rol admin global; un
