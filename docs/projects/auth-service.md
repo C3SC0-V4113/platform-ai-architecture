@@ -260,6 +260,11 @@ consumidores (viven en `docs/` de ese repo, como fuente de verdad):
 - guia admin/MCP para `mcp-server`, operadores y los comandos admin (incluido el
   prune del audit).
 
+Ademas, `Identity-Service` incluye un **esbozo de diseño** de los paquetes
+compartidos que define ADR 0002 (`@org/contracts`, `@org/auth-sdk`): superficie y
+tipos concretos derivados de los contratos reales, como input para cuando se cree
+ese paquete/repo. Aun no esta construido.
+
 ### Divergencias de contrato a tener en cuenta para el ecosistema
 
 - La autorizacion es estrictamente por proyecto: no existe rol admin global; un
