@@ -260,10 +260,20 @@ consumidores (viven en `docs/` de ese repo, como fuente de verdad):
 - guia admin/MCP para `mcp-server`, operadores y los comandos admin (incluido el
   prune del audit).
 
-Ademas, `Identity-Service` incluye un **esbozo de diseño** de los paquetes
-compartidos que define ADR 0002 (`@org/contracts`, `@org/auth-sdk`): superficie y
-tipos concretos derivados de los contratos reales, como input para cuando se cree
-ese paquete/repo. Aun no esta construido.
+Ademas, los paquetes compartidos que define ADR 0002 (`@org/contracts`,
+`@org/auth-sdk`) ya estan **construidos y publicados** en npm publico, en el
+monorepo pnpm `identity-packages`:
+
+- `@cesco_valle/identity-contracts` — esquemas Zod + tipos inferidos de cada
+  contrato (superficies user, project-admin y machine-admin).
+- `@cesco_valle/identity-auth-sdk` — clientes HTTP tipados: `./user`
+  (cookie/sesion, browser + Next.js) y `./admin` (service-principal, Node/
+  `mcp-server`, server-only).
+
+`Identity-Service` los **consume de vuelta** como fuente unica de verdad: sus tres
+`*.schemas.ts` re-exportan `@cesco_valle/identity-contracts`, de modo que cliente y
+servidor no pueden divergir. Los consumidores (`other-gpt`, `cost-console`,
+`mcp-server`) instalan el SDK en vez de escribir DTOs/clientes a mano.
 
 ### Divergencias de contrato a tener en cuenta para el ecosistema
 
