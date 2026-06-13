@@ -26,3 +26,4 @@ Este directorio contiene las Architecture Decision Records del portafolio.
 - [0008-operate-auth-admin-via-mcp-with-risk-based-approval.md](./0008-operate-auth-admin-via-mcp-with-risk-based-approval.md)
 - [0009-position-knowledge-rag-as-external-google-drive-rag-app.md](./0009-position-knowledge-rag-as-external-google-drive-rag-app.md)
 - [0010-expand-knowledge-rag-to-curated-university-corpus.md](./0010-expand-knowledge-rag-to-curated-university-corpus.md)
+- [0011-deploy-mcp-server-on-cloudflare-for-controlled-agents.md](./0011-deploy-mcp-server-on-cloudflare-for-controlled-agents.md)

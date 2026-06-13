@@ -22,7 +22,8 @@ Puede ser necesario temprano como mecanismo para que `openclaw-ops` ejecute oper
 ## Stack recomendado
 
 - `TypeScript`
-- `MCP SDK`
+- `Cloudflare Workers`
+- `Cloudflare Agents SDK / MCP SDK`
 
 ## Que guarda
 
@@ -47,6 +48,8 @@ Como evolucion inmediata despues de levantar la API de `auth-service`, puede exp
 - `auth.revokeProjectAccess`;
 - `auth.revokeSession`;
 - `auth.banUser`;
+- `auth.unbanUser`;
+- `auth.readmitProjectMembership`;
 - `auth.listProjectUsers`;
 - `auth.getUserAccessStatus`;
 - `auth.listPendingApprovals`;
@@ -57,16 +60,18 @@ Estas tools deben consumir el API de `auth-service`; no deben escribir directo e
 ## Contrato operativo minimo
 
 - Las mutaciones usan un sobre comun con `targetProjectId`, `reason`, `idempotencyKey`, `ticketRef?`, `channel` y `payload`.
-- La identidad del actor no viaja en el payload; `mcp-server` la inyecta desde la sesion real de OpenClaw y la credencial de servicio.
+- En v1, `mcp-server` autentica agentes controlados con bearer token propio y llama a `auth-service` con credencial de servicio. La atribucion de operador humano solo se reenvia cuando el contrato admin la recibe; una sesion real de OpenClaw puede reemplazar o enriquecer este modelo en una fase posterior.
 - Las respuestas mutantes devuelven `status`, `operationId`, `approvalId?`, `auditEventId`, `message` y `result`.
 - Los valores minimos de `status` en v1 son `completed`, `pending_approval`, `denied` y `failed`.
 - `mcp-server` valida schema MCP y propaga `correlationId`, pero la decision canonica de permisos, aprobacion y auditoria vive en `auth-service`.
+- La v1 se expone solo a agentes controlados por el operador del portafolio, protegida por bearer token en el borde MCP. OAuth o Cloudflare Access quedan para una fase posterior con agentes externos.
 
 ## Politica minima de ejecucion
 
 - Las lecturas ejecutan directo.
 - Las mutaciones de bajo riesgo pueden ejecutar directo si `auth-service` lo permite.
 - Las mutaciones de alto riesgo deben devolver `pending_approval` y luego resolverse con `auth.decideApproval`.
+- Mientras exista una sola identidad operativa, `decideApproval` funciona como confirmacion deliberada de segundo paso. Cuando exista una segunda identidad operativa, debe reintroducirse la separacion solicitante/aprobador.
 - `mcp-server` no debe exponer una tool generica tipo `runAdminAction`; la v1 usa tools discretas y schemas explicitos.
 
 ## Con quien habla

@@ -54,14 +54,14 @@ Para `auth-service`, OpenClaw se trata inicialmente como una superficie administ
 - banear usuarios;
 - consultar estado de usuarios y permisos;
 - listar aprobaciones pendientes;
-- aprobar o rechazar solicitudes pendientes con un segundo operador;
+- aprobar o rechazar solicitudes pendientes como segundo paso deliberado;
 - ejecutar estas acciones mediante tools o MCP cuando exista la segunda fase de integracion.
 
 Cada operacion administrativa debe ser autorizada por `auth-service` y quedar auditada ahi con actor, operacion, proyecto objetivo, usuario afectado, timestamp y resultado.
 
 OpenClaw debe operar este flujo con dos reglas duras:
 
-- el operador que solicita una accion sensible no la autoaprueba;
+- mientras exista una sola identidad operativa, una accion sensible exige confirmacion deliberada mediante `decideApproval`; cuando haya una segunda identidad operativa, el solicitante no debe autoaprobar;
 - las mutaciones deben reenviar `reason`, `idempotencyKey` y `channel` para que `auth-service` mantenga trazabilidad e idempotencia.
 
 ## Con quien habla

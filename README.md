@@ -57,6 +57,7 @@ El learning path enumera habilidades importantes del portafolio; no define prior
 - [ADR 0008](./docs/adr/0008-operate-auth-admin-via-mcp-with-risk-based-approval.md): operar auth admin via MCP con aprobacion por riesgo y auditoria en auth-service.
 - [ADR 0009](./docs/adr/0009-position-knowledge-rag-as-external-google-drive-rag-app.md): posicionar knowledge-rag como app RAG externa basada inicialmente en Google Drive.
 - [ADR 0010](./docs/adr/0010-expand-knowledge-rag-to-curated-university-corpus.md): ampliar knowledge-rag a un corpus universitario curado desde Google Drive y GitHub.
+- [ADR 0011](./docs/adr/0011-deploy-mcp-server-on-cloudflare-for-controlled-agents.md): desplegar mcp-server en Cloudflare para agentes controlados y alinear la aprobacion inicial con confirmacion deliberada.
 
 ## Como continuar
 
